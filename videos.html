@@ -3,114 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comunidad Vimmy Dog y Accesorios</title>
+    <title>Comunidad Vimmy Dog & Accesorios</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome para Íconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome Iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts: Montserrat y Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --vimmy-green: #21523d;
+            --vimmy-bg-dark: #0f2b1d;       /* Verde oscuro profundo de la imagen */
+            --vimmy-bg-card: #0b2217;       /* Tono verde más oscuro para fondos */
+            --vimmy-gold: #ffb703;          /* Dorado/amarillo brillante para acentos */
+            --vimmy-gold-hover: #e0a100;
             --vimmy-green-light: #2d6a4f;
-            --vimmy-accent: #ffb703;
-            --vimmy-bg-light: #f8f9fa;
+            --vimmy-text-muted: #a3b899;
+            --card-radius: 18px;
         }
 
-        .bg-vimmy-green {
-            background-color: var(--vimmy-green) !important;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--vimmy-bg-dark);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
 
-        .text-vimmy-green {
-            color: var(--vimmy-green) !important;
+        h1, h2, h3, h4, .font-brand {
+            font-family: 'Montserrat', sans-serif;
         }
 
+        /* ----- INSIGNIA / BADGE CENTRAL (COMO EN LA IMAGEN) ----- */
         .badge-vimmydog {
-            background-color: var(--vimmy-accent);
-            color: #111;
+            border: 1px solid var(--vimmy-gold);
+            color: var(--vimmy-gold);
+            background: rgba(255, 183, 3, 0.08);
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 0.8rem;
             font-weight: 700;
-            padding: 8px 16px;
-            border-radius: 20px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Tarjetas de Video */
+        /* ----- INTERRUPTOR DE FORMATO (16:9 VS 9:16) ----- */
+        .toggle-btn-group {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 5px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: inline-flex;
+            gap: 6px;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            color: #ffffff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-btn.active {
+            background: #ffffff;
+            color: var(--vimmy-bg-dark);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        /* ----- TARJETAS DE VIDEO ----- */
         .card-video {
             border: none;
-            border-radius: 16px;
+            border-radius: var(--card-radius);
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #ffffff;
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .card-video:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+            transform: translateY(-8px);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.5);
         }
 
-        .card-video video {
-            object-fit: cover;
-            border-bottom: 3px solid var(--vimmy-accent);
-        }
-
-        /* Tarjetas de Accesorios */
-        .card-product {
-            border: none;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: #ffffff;
-        }
-
-        .card-product:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-        }
-
-        .product-img-wrapper {
+        .video-container {
             position: relative;
-            height: 220px;
-            background-color: #e9ecef;
+            background-color: #000;
             overflow: hidden;
+            transition: aspect-ratio 0.4s ease;
         }
 
-        .product-img-wrapper img {
+        /* Formato Horizontal por defecto (16:9) */
+        .video-container.ratio-horizontal {
+            aspect-ratio: 16 / 9;
+        }
+
+        /* Formato Vertical / Reels (9:16) */
+        .video-container.ratio-vertical {
+            aspect-ratio: 9 / 16;
+        }
+
+        .video-container video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s ease;
+            display: block;
         }
 
-        .card-product:hover .product-img-wrapper img {
-            transform: scale(1.05);
+        /* Botón Play Superpuesto */
+        .play-btn-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(15, 43, 29, 0.85);
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 3;
         }
 
-        .btn-vimmy {
-            background-color: var(--vimmy-green);
-            color: white;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: background 0.2s ease;
+        .card-video:hover .play-btn-overlay {
+            background: var(--vimmy-gold);
+            color: var(--vimmy-bg-dark);
+            border-color: var(--vimmy-gold);
+            transform: translate(-50%, -50%) scale(1.1);
         }
 
-        .btn-vimmy:hover {
-            background-color: var(--vimmy-green-light);
-            color: white;
+        .card-video.is-playing .play-btn-overlay {
+            opacity: 0;
         }
 
-        .badge-category {
+        /* Etiquetas en la esquina superior de los videos */
+        .video-tag {
             position: absolute;
             top: 12px;
             left: 12px;
-            background: rgba(33, 82, 61, 0.85);
-            color: white;
+            background: rgba(0, 0, 0, 0.65);
+            color: #ffffff;
+            backdrop-filter: blur(6px);
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Pie de la tarjeta de video (blanco) */
+        .card-video-footer {
+            background: #ffffff;
+            color: var(--vimmy-bg-dark);
+            padding: 16px;
+            text-align: left;
+        }
+
+        .card-video-footer h6 {
+            color: var(--vimmy-bg-dark);
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-video-footer p {
+            color: #6c757d;
+            font-size: 0.8rem;
+            margin-bottom: 0;
+        }
+
+        /* Botón de Instagram Dorado Central */
+        .btn-vimmy-gold {
+            background: var(--vimmy-gold);
+            color: var(--vimmy-bg-dark);
+            font-weight: 700;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 20px rgba(255, 183, 3, 0.3);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-vimmy-gold:hover {
+            background: #e6a500;
+            color: var(--vimmy-bg-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 183, 3, 0.45);
+        }
+
+        /* ----- SECCIÓN 2: ACCESORIOS PARA PERROS ----- */
+        .section-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .filter-btn-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-chip {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #d1e0d7;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-chip:hover, .filter-chip.active {
+            background: var(--vimmy-gold);
+            color: var(--vimmy-bg-dark);
+            border-color: var(--vimmy-gold);
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 183, 3, 0.25);
+        }
+
+        /* Tarjeta de Producto / Accesorio */
+        .card-accessory {
+            border: none;
+            border-radius: var(--card-radius);
+            background: #ffffff;
+            color: #2b2b2b;
+            overflow: hidden;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-accessory:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .accessory-img-wrapper {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            background: #f1f3f5;
+            overflow: hidden;
+        }
+
+        .accessory-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-accessory:hover .accessory-img-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .accessory-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--vimmy-gold);
+            color: var(--vimmy-bg-dark);
+            font-size: 0.7rem;
+            font-weight: 800;
             padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .price-tag {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--vimmy-bg-dark);
+        }
+
+        .btn-add-cart {
+            background-color: var(--vimmy-bg-dark);
+            color: #ffffff;
+            font-weight: 600;
             border-radius: 12px;
-            backdrop-filter: blur(4px);
+            padding: 10px;
+            border: none;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-add-cart:hover {
+            background-color: var(--vimmy-green-light);
+            color: #ffffff;
+        }
+
+        /* Toast de confirmación de compra */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--vimmy-gold);
+            color: var(--vimmy-bg-dark);
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 9999;
         }
     </style>
 </head>
@@ -119,196 +344,345 @@
     <!-- ========================================================= -->
     <!-- SECCIÓN 1: GALERÍA DE VIDEOS (COMUNIDAD VIMMY DOG)        -->
     <!-- ========================================================= -->
-    <section class="bg-vimmy-green py-5 text-white">
-        <div class="container text-center">
+    <section class="py-5">
+        <div class="container text-center py-3">
             
-            <!-- Insignia y Encabezado -->
-            <span class="badge-vimmydog mb-3">Comunidad Vimmy Dog</span>
-            <h2 class="fw-bold mb-2 display-6">¡A ellos les encantan nuestros snacks!</h2>
-            <p class="mb-5 text-light opacity-75">Mira cómo disfrutan nuestros clientes más exigentes.</p>
-            
-            <!-- Grilla Adaptable de Videos (4 Columnas) -->
-            <div class="row g-4 justify-content-center">
+            <!-- Insignia Superior -->
+            <div class="mb-3">
+                <span class="badge-vimmydog">
+                    <i class="fa-solid fa-heart"></i> COMUNIDAD VIMMY DOG
+                </span>
+            </div>
+
+            <!-- Título Principal -->
+            <h2 class="display-5 fw-bold mb-3 text-white">
+                ¡A ellos les encantan nuestros snacks!
+            </h2>
+            <p class="text-white-50 mb-4 fs-6">
+                Mira cómo disfrutan nuestros clientes más exigentes en su día a día.
+            </p>
+
+            <!-- Selector de Formato de Video (16:9 vs 9:16) -->
+            <div class="d-flex justify-content-center align-items-center gap-2 mb-5">
+                <span class="text-white-50 small me-2"><i class="fa-solid fa-sliders me-1"></i> Formato de vídeo:</span>
+                <div class="toggle-btn-group">
+                    <button class="toggle-btn active" id="btn-horizontal" onclick="setVideoRatio('horizontal')">
+                        <i class="fa-solid fa-tv"></i> Horizontal (16:9)
+                    </button>
+                    <button class="toggle-btn" id="btn-vertical" onclick="setVideoRatio('vertical')">
+                        <i class="fa-solid fa-mobile-screen"></i> Vertical / Reels (9:16)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grilla de 4 Tarjetas de Video (Responsiva) -->
+            <div class="row g-4 justify-content-center mb-5">
                 
-                <!-- Video 1 -->
+                <!-- =================================================== -->
+                <!-- VIDEO 1 -->
+                <!-- =================================================== -->
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card card-video bg-dark text-white h-100">
-                        <div class="ratio ratio-16x9">
-                            <!-- RUTA LOCAL DE TU VIDEO 1 -->
-                            <video class="w-100" controls autoplay muted loop preload="metadata">
+                    <div class="card card-video h-100">
+                        <div class="video-container ratio-horizontal">
+                            <span class="video-tag"><i class="fa-solid fa-location-dot"></i> En Casa</span>
+                            <div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div>
+                            
+                            <!-- 
+                                ⚠️ PARA COLOCAR TU VIDEO LOCAL:
+                                Reemplaza el 'src' por la ruta de tu archivo local:
                                 <source src="videos/pastor.mp4" type="video/mp4">
+                            -->
+                            <video loop muted playsinline poster="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80">
+                                <source src="videos/pastor.mp4" type="video/mp4">
+                                <source src="https://assets.mixkit.co/videos/preview/mixkit-dog-catches-a-ball-in-a-park-41584-large.mp4" type="video/mp4">
                                 Tu navegador no soporta reproducción de video.
                             </video>
                         </div>
-                        <div class="card-body bg-white text-dark py-3">
-                            <h6 class="fw-bold mb-0 text-vimmy-green">🐾 Max disfrutando su premio</h6>
+                        <div class="card-video-footer">
+                            <h6>🐾 Max disfrutando su premio</h6>
+                            <p>Pastor Alemán • Snack Natural de Carne</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Video 2 -->
+                <!-- =================================================== -->
+                <!-- VIDEO 2 -->
+                <!-- =================================================== -->
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card card-video bg-dark text-white h-100">
-                        <div class="ratio ratio-16x9">
-                            <!-- RUTA LOCAL DE TU VIDEO 2 -->
-                            <video class="w-100" controls autoplay muted loop preload="metadata">
+                    <div class="card card-video h-100">
+                        <div class="video-container ratio-horizontal">
+                            <span class="video-tag"><i class="fa-solid fa-tree"></i> En el Parque</span>
+                            <div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div>
+                            
+                            <!-- 
+                                ⚠️ PARA COLOCAR TU VIDEO LOCAL:
                                 <source src="videos/parque1.mp4" type="video/mp4">
+                            -->
+                            <video loop muted playsinline poster="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80">
+                                <source src="videos/parque1.mp4" type="video/mp4">
+                                <source src="https://assets.mixkit.co/videos/preview/mixkit-small-dog-running-on-the-grass-41318-large.mp4" type="video/mp4">
                                 Tu navegador no soporta reproducción de video.
                             </video>
                         </div>
-                        <div class="card-body bg-white text-dark py-3">
-                            <h6 class="fw-bold mb-0 text-vimmy-green">🐾 Luna probando el nuevo sabor</h6>
+                        <div class="card-video-footer">
+                            <h6>🐾 Luna probando sabor nuevo</h6>
+                            <p>Golden Retriever • Premios Horneados</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Video 3 -->
+                <!-- =================================================== -->
+                <!-- VIDEO 3 -->
+                <!-- =================================================== -->
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card card-video bg-dark text-white h-100">
-                        <div class="ratio ratio-16x9">
-                            <!-- RUTA LOCAL DE TU VIDEO 3 -->
-                            <video class="w-100" controls autoplay muted loop preload="metadata">
-                                <source src="videos/video3.mp4" type="video/mp4">
+                    <div class="card card-video h-100">
+                        <div class="video-container ratio-horizontal">
+                            <span class="video-tag"><i class="fa-solid fa-graduation-cap"></i> Entrenamiento</span>
+                            <div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div>
+                            
+                            <!-- 
+                                ⚠️ PARA COLOCAR TU VIDEO LOCAL:
+                                <source src="videos/trucos.mp4" type="video/mp4">
+                            -->
+                            <video loop muted playsinline poster="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&w=600&q=80">
+                                <source src="videos/trucos.mp4" type="video/mp4">
+                                <source src="https://assets.mixkit.co/videos/preview/mixkit-man-playing-with-his-dog-in-a-park-41315-large.mp4" type="video/mp4">
                                 Tu navegador no soporta reproducción de video.
                             </video>
                         </div>
-                        <div class="card-body bg-white text-dark py-3">
-                            <h6 class="fw-bold mb-0 text-vimmy-green">🐾 Toby compartiendo con amigos</h6>
+                        <div class="card-video-footer">
+                            <h6>🐾 Rocky aprendiendo trucos</h6>
+                            <p>Jack Russell • Bite-sized Trainer</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Video 4 -->
+                <!-- =================================================== -->
+                <!-- VIDEO 4 -->
+                <!-- =================================================== -->
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card card-video bg-dark text-white h-100">
-                        <div class="ratio ratio-16x9">
-                            <!-- RUTA LOCAL DE TU VIDEO 4 -->
-                            <video class="w-100" controls autoplay muted loop preload="metadata">
+                    <div class="card card-video h-100">
+                        <div class="video-container ratio-horizontal">
+                            <span class="video-tag"><i class="fa-solid fa-bone"></i> Hora de Snack</span>
+                            <div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div>
+                            
+                            <!-- 
+                                ⚠️ PARA COLOCAR TU VIDEO LOCAL:
                                 <source src="videos/parque2.mp4" type="video/mp4">
+                            -->
+                            <video loop muted playsinline poster="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=600&q=80">
+                                <source src="videos/parque2.mp4" type="video/mp4">
+                                <source src="https://assets.mixkit.co/videos/preview/mixkit-dog-looking-at-the-camera-41582-large.mp4" type="video/mp4">
                                 Tu navegador no soporta reproducción de video.
                             </video>
                         </div>
-                        <div class="card-body bg-white text-dark py-3">
-                            <h6 class="fw-bold mb-0 text-vimmy-green">🐾 Rocky en su hora de snack</h6>
+                        <div class="card-video-footer">
+                            <h6>🐾 Toby feliz con su caja</h6>
+                            <p>Beagle • Pack Variado de Treats</p>
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            <!-- Botón Dorado de Acción Central (Exacto de la Imagen) -->
+            <div>
+                <a href="https://instagram.com" target="_blank" class="btn-vimmy-gold">
+                    <i class="fa-brands fa-instagram fs-5"></i> Ver más historias en @VimmyDog
+                </a>
+            </div>
+
         </div>
     </section>
 
+    <div class="section-divider"></div>
 
     <!-- ========================================================= -->
     <!-- SECCIÓN 2: ACCESORIOS PARA PERROS                         -->
     <!-- ========================================================= -->
-    <section class="py-5 bg-light">
-        <div class="container py-4">
+    <section class="py-5">
+        <div class="container py-3">
             
-            <!-- Encabezado de la Sección -->
-            <div class="text-center mb-5">
-                <span class="badge-vimmydog mb-2">Equipamiento Premium</span>
-                <h2 class="fw-bold display-6 text-vimmy-green">Accesorios para tu Mejor Amigo</h2>
-                <p class="text-muted">Diseño, comodidad y durabilidad para las aventuras diarias.</p>
+            <!-- Encabezado de la Sección de Accesorios -->
+            <div class="text-center mb-4">
+                <div class="mb-3">
+                    <span class="badge-vimmydog">
+                        <i class="fa-solid fa-shield-dog"></i> EQUIPAMIENTO VIMMY
+                    </span>
+                </div>
+                <h2 class="display-6 fw-bold text-white mb-2">
+                    Accesorios para Perros
+                </h2>
+                <p class="text-white-50">
+                    Diseño, confort y resistencia para el día a día de tu mascota.
+                </p>
             </div>
 
-            <!-- Grilla de Productos / Accesorios -->
-            <div class="row g-4">
+            <!-- Filtros de Categorías -->
+            <div class="filter-btn-group mb-5">
+                <button class="filter-chip active" onclick="filterCategory('todos', this)">Todos los Accesorios</button>
+                <button class="filter-chip" onclick="filterCategory('paseo', this)">Paseo & Seguridad</button>
+                <button class="filter-chip" onclick="filterCategory('ropa', this)">Bandanas & Ropa</button>
+                <button class="filter-chip" onclick="filterCategory('hogar', this)">Comederos & Varios</button>
+            </div>
+
+            <!-- Grilla de Accesorios (4 Productos) -->
+            <div class="row g-4" id="accessories-grid">
                 
-                <!-- Accesorio 1 -->
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card card-product h-100 shadow-sm">
-                        <div class="product-img-wrapper">
-                            <span class="badge-category">Paseo</span>
-                            <!-- RUTA LOCAL DE TU IMAGEN 1 -->
-                            <img src="img/arnes-ergonomico.jpg" alt="Arnés Ergonómico Reforzado" onerror="this.src='https://via.placeholder.com/400x300?text=Carga+tu+Imagen'">
+                <!-- =================================================== -->
+                <!-- ACCESORIO 1 -->
+                <!-- =================================================== -->
+                <div class="col-12 col-sm-6 col-lg-3 accessory-card" data-category="paseo">
+                    <div class="card-accessory">
+                        <div class="accessory-img-wrapper">
+                            <span class="accessory-badge">Top Ventas</span>
+                            
+                            <!-- 
+                                ⚠️ PARA COLOCAR TU IMAGEN LOCAL:
+                                Reemplaza el 'src' por: src="img/arnes.jpg"
+                            -->
+                            <img src="img/arnes.jpg" onerror="this.src='https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=600&q=80'" alt="Arnés Ergonómico">
                         </div>
-                        <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="p-3 d-flex flex-column justify-content-between flex-grow-1">
                             <div>
-                                <h5 class="card-title fw-bold text-dark fs-6">Arnés Ergonómico Reforzado</h5>
-                                <p class="card-text text-muted small">Diseñado para evitar tirones y proteger su columna.</p>
-                            </div>
-                            <div class="mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="fw-bold fs-5 text-vimmy-green">$85.000</span>
+                                <div class="text-warning small mb-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="text-muted ms-1">(48)</span>
                                 </div>
-                                <button class="btn btn-vimmy w-100">
-                                    <i class="fa-solid fa-cart-shopping me-2"></i>Agregar al carrito
+                                <h6 class="fw-bold mb-1 text-dark">Arnés Ergonómico Anti-Tirones</h6>
+                                <p class="text-muted small mb-3">Acolchado transpirable y tiras reflectantes.</p>
+                            </div>
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="price-tag">$24.990</span>
+                                    <span class="badge bg-light text-success border">En Stock</span>
+                                </div>
+                                <button class="btn-add-cart" onclick="addToCart('Arnés Ergonómico Anti-Tirones')">
+                                    <i class="fa-solid fa-cart-shopping me-2"></i> Añadir al Carrito
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Accesorio 2 -->
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card card-product h-100 shadow-sm">
-                        <div class="product-img-wrapper">
-                            <span class="badge-category">Seguridad</span>
-                            <!-- RUTA LOCAL DE TU IMAGEN 2 -->
-                            <img src="img/correa-reflectiva.jpg" alt="Correa Mantis Reflectiva" onerror="this.src='https://via.placeholder.com/400x300?text=Carga+tu+Imagen'">
+                <!-- =================================================== -->
+                <!-- ACCESORIO 2 -->
+                <!-- =================================================== -->
+                <div class="col-12 col-sm-6 col-lg-3 accessory-card" data-category="paseo">
+                    <div class="card-accessory">
+                        <div class="accessory-img-wrapper">
+                            <span class="accessory-badge">Nuevo</span>
+                            
+                            <!-- 
+                                ⚠️ PARA COLOCAR TU IMAGEN LOCAL:
+                                Reemplaza el 'src' por: src="img/correa.jpg"
+                            -->
+                            <img src="img/correa.jpg" onerror="this.src='https://images.unsplash.com/photo-1535294435445-d7249524ef2e?auto=format&fit=crop&w=600&q=80'" alt="Correa Multiposición">
                         </div>
-                        <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="p-3 d-flex flex-column justify-content-between flex-grow-1">
                             <div>
-                                <h5 class="card-title fw-bold text-dark fs-6">Correa Reflectiva 1.5m</h5>
-                                <p class="card-text text-muted small">Nylon de alta resistencia con agarre acolchado nocturno.</p>
-                            </div>
-                            <div class="mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="fw-bold fs-5 text-vimmy-green">$42.000</span>
+                                <div class="text-warning small mb-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                    <span class="text-muted ms-1">(32)</span>
                                 </div>
-                                <button class="btn btn-vimmy w-100">
-                                    <i class="fa-solid fa-cart-shopping me-2"></i>Agregar al carrito
+                                <h6 class="fw-bold mb-1 text-dark">Correa Multiposición 2M</h6>
+                                <p class="text-muted small mb-3">Nylon reforzado con mosquetón giratorio 360°.</p>
+                            </div>
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="price-tag">$15.990</span>
+                                    <span class="badge bg-light text-success border">En Stock</span>
+                                </div>
+                                <button class="btn-add-cart" onclick="addToCart('Correa Multiposición 2M')">
+                                    <i class="fa-solid fa-cart-shopping me-2"></i> Añadir al Carrito
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Accesorio 3 -->
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card card-product h-100 shadow-sm">
-                        <div class="product-img-wrapper">
-                            <span class="badge-category">Hogar</span>
-                            <!-- RUTA LOCAL DE TU IMAGEN 3 -->
-                            <img src="img/comedero-elevado.jpg" alt="Comedero Antivoracidad" onerror="this.src='https://via.placeholder.com/400x300?text=Carga+tu+Imagen'">
+                <!-- =================================================== -->
+                <!-- ACCESORIO 3 -->
+                <!-- =================================================== -->
+                <div class="col-12 col-sm-6 col-lg-3 accessory-card" data-category="ropa">
+                    <div class="card-accessory">
+                        <div class="accessory-img-wrapper">
+                            <span class="accessory-badge">Favorito</span>
+                            
+                            <!-- 
+                                ⚠️ PARA COLOCAR TU IMAGEN LOCAL:
+                                Reemplaza el 'src' por: src="img/bandana.jpg"
+                            -->
+                            <img src="img/bandana.jpg" onerror="this.src='https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80'" alt="Bandana Algodón">
                         </div>
-                        <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="p-3 d-flex flex-column justify-content-between flex-grow-1">
                             <div>
-                                <h5 class="card-title fw-bold text-dark fs-6">Comedero Interactivo Antivoracidad</h5>
-                                <p class="card-text text-muted small">Promueve la buena digestión comiendo más despacio.</p>
-                            </div>
-                            <div class="mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="fw-bold fs-5 text-vimmy-green">$55.000</span>
+                                <div class="text-warning small mb-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="text-muted ms-1">(64)</span>
                                 </div>
-                                <button class="btn btn-vimmy w-100">
-                                    <i class="fa-solid fa-cart-shopping me-2"></i>Agregar al carrito
+                                <h6 class="fw-bold mb-1 text-dark">Bandana Algodón Exclusiva</h6>
+                                <p class="text-muted small mb-3">Suave, ajustable y fácil de lavar a máquina.</p>
+                            </div>
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="price-tag">$8.990</span>
+                                    <span class="badge bg-light text-success border">En Stock</span>
+                                </div>
+                                <button class="btn-add-cart" onclick="addToCart('Bandana Algodón Exclusiva')">
+                                    <i class="fa-solid fa-cart-shopping me-2"></i> Añadir al Carrito
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Accesorio 4 -->
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card card-product h-100 shadow-sm">
-                        <div class="product-img-wrapper">
-                            <span class="badge-category">Juego</span>
-                            <!-- RUTA LOCAL DE TU IMAGEN 4 -->
-                            <img src="img/juguete-mordedor.jpg" alt="Juguete Mordedor Resistente" onerror="this.src='https://via.placeholder.com/400x300?text=Carga+tu+Imagen'">
+                <!-- =================================================== -->
+                <!-- ACCESORIO 4 -->
+                <!-- =================================================== -->
+                <div class="col-12 col-sm-6 col-lg-3 accessory-card" data-category="hogar">
+                    <div class="card-accessory">
+                        <div class="accessory-img-wrapper">
+                            <span class="accessory-badge">Práctico</span>
+                            
+                            <!-- 
+                                ⚠️ PARA COLOCAR TU IMAGEN LOCAL:
+                                Reemplaza el 'src' por: src="img/comedero.jpg"
+                            -->
+                            <img src="img/comedero.jpg" onerror="this.src='https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?auto=format&fit=crop&w=600&q=80'" alt="Comedero Plegable">
                         </div>
-                        <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="p-3 d-flex flex-column justify-content-between flex-grow-1">
                             <div>
-                                <h5 class="card-title fw-bold text-dark fs-6">Juguete Mordedor Dental</h5>
-                                <p class="card-text text-muted small">Caucho natural no tóxico para limpieza de dientes.</p>
-                            </div>
-                            <div class="mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="fw-bold fs-5 text-vimmy-green">$30.000</span>
+                                <div class="text-warning small mb-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                    <span class="text-muted ms-1">(19)</span>
                                 </div>
-                                <button class="btn btn-vimmy w-100">
-                                    <i class="fa-solid fa-cart-shopping me-2"></i>Agregar al carrito
+                                <h6 class="fw-bold mb-1 text-dark">Comedero Plegable Portátil</h6>
+                                <p class="text-muted small mb-3">Silicona libre de BPA con mosquetón para viajes.</p>
+                            </div>
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="price-tag">$6.990</span>
+                                    <span class="badge bg-light text-success border">En Stock</span>
+                                </div>
+                                <button class="btn-add-cart" onclick="addToCart('Comedero Plegable Portátil')">
+                                    <i class="fa-solid fa-cart-shopping me-2"></i> Añadir al Carrito
                                 </button>
                             </div>
                         </div>
@@ -316,10 +690,112 @@
                 </div>
 
             </div>
+
         </div>
     </section>
 
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Toast / Notificación de Carrito -->
+    <div id="cartToast" class="toast-notification">
+        <i class="fa-solid fa-circle-check fs-5"></i>
+        <span><strong id="toastProductName">Producto</strong> añadido al carrito</span>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- JAVASCRIPT Y LÓGICA DE INTERACCIÓN                        -->
+    <!-- ========================================================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lógica de reproducción/pausa de videos al pasar el cursor o tocar
+            const videoCards = document.querySelectorAll('.card-video');
+
+            videoCards.forEach(card => {
+                const video = card.querySelector('video');
+
+                // Hover en computadores
+                card.addEventListener('mouseenter', () => {
+                    video.play().then(() => {
+                        card.classList.add('is-playing');
+                    }).catch(e => console.log("Autoplay prevenido por el navegador", e));
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                    card.classList.remove('is-playing');
+                });
+
+                // Clic / Tap para dispositivos móviles
+                card.addEventListener('click', () => {
+                    if (video.paused) {
+                        // Pausar los demás videos
+                        document.querySelectorAll('video').forEach(v => {
+                            v.pause();
+                            v.closest('.card-video').classList.remove('is-playing');
+                        });
+                        video.play().then(() => {
+                            card.classList.add('is-playing');
+                        });
+                    } else {
+                        video.pause();
+                        card.classList.remove('is-playing');
+                    }
+                });
+            });
+        });
+
+        // Cambiar entre formato Horizontal (16:9) y Vertical (9:16)
+        function setVideoRatio(format) {
+            const containers = document.querySelectorAll('.video-container');
+            const btnHorizontal = document.getElementById('btn-horizontal');
+            const btnVertical = document.getElementById('btn-vertical');
+
+            if (format === 'vertical') {
+                containers.forEach(c => {
+                    c.classList.remove('ratio-horizontal');
+                    c.classList.add('ratio-vertical');
+                });
+                btnVertical.classList.add('active');
+                btnHorizontal.classList.remove('active');
+            } else {
+                containers.forEach(c => {
+                    c.classList.remove('ratio-vertical');
+                    c.classList.add('ratio-horizontal');
+                });
+                btnHorizontal.classList.add('active');
+                btnVertical.classList.remove('active');
+            }
+        }
+
+        // Filtrar Accesorios por Categoría
+        function filterCategory(category, chipElement) {
+            const cards = document.querySelectorAll('.accessory-card');
+            const chips = document.querySelectorAll('.filter-chip');
+
+            chips.forEach(c => c.classList.remove('active'));
+            chipElement.classList.add('active');
+
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (category === 'todos' || cardCat === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Mostrar notificación de producto añadido al carrito
+        function addToCart(productName) {
+            const toast = document.getElementById('cartToast');
+            const toastName = document.getElementById('toastProductName');
+
+            toastName.textContent = productName;
+            toast.style.display = 'flex';
+
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
