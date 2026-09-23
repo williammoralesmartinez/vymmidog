@@ -1,160 +1,422 @@
-<section class="bg-vimmy-green py-5 text-white">
-    <div class="container text-center">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidad Vimmy Dog - Galería de Videos</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins & Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --vimmy-green-dark: #1b4332;
+            --vimmy-green-primary: #2d6a4f;
+            --vimmy-green-light: #52b788;
+            --vimmy-green-accent: #74c69d;
+            --vimmy-yellow: #ffb703;
+            --card-border-radius: 20px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Sección principal Vimmy */
+        .section-vimmy-community {
+            background: linear-gradient(135deg, var(--vimmy-green-dark) 0%, #081c15 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decoración de fondo */
+        .section-vimmy-community::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 350px;
+            height: 350px;
+            background: rgba(82, 183, 136, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Badge Personalizada */
+        .badge-vimmydog {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--vimmy-yellow);
+            border: 1px solid rgba(255, 183, 3, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Tarjeta de Video */
+        .card-video {
+            border: none;
+            border-radius: var(--card-border-radius);
+            overflow: hidden;
+            background: #ffffff;
+            transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card-video:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Contenedor del Video con Ratios */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            background-color: #000;
+            overflow: hidden;
+            transition: padding-top 0.4s ease;
+        }
+
+        /* Ratio 16:9 por defecto */
+        .video-wrapper.ratio-16x9 {
+            padding-top: 56.25%;
+        }
+
+        /* Ratio 9:16 estilo Reels/TikTok */
+        .video-wrapper.ratio-9x16 {
+            padding-top: 133%; /* Ajustado para mejor proporción en tarjetas */
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-top-left-radius: var(--card-border-radius);
+            border-top-right-radius: var(--card-border-radius);
+        }
+
+        /* Overlay Play Button Customizado */
+        .video-overlay-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            width: 55px;
+            height: 55px;
+            background: rgba(27, 67, 50, 0.8);
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        .card-video:hover .video-overlay-btn {
+            background: var(--vimmy-yellow);
+            color: var(--vimmy-green-dark);
+            border-color: var(--vimmy-yellow);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .card-video.is-playing .video-overlay-btn {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Tag Flotante del Nombre del Perro */
+        .dog-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            backdrop-filter: blur(6px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            z-index: 2;
+        }
+
+        /* Cuerpo de la tarjeta */
+        .card-video .card-body {
+            padding: 1.25rem 1rem;
+            background-color: #ffffff;
+            text-align: left;
+            border-bottom-left-radius: var(--card-border-radius);
+            border-bottom-right-radius: var(--card-border-radius);
+        }
+
+        .card-title-text {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--vimmy-green-dark);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-subtext {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+
+        /* Botones de Control de Formato (Ratio Switcher) */
+        .btn-ratio-toggle {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ratio-toggle:hover, .btn-ratio-toggle.active {
+            background-color: #ffffff;
+            color: var(--vimmy-green-dark);
+            border-color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Botón de Cargar Más */
+        .btn-vimmy-cta {
+            background-color: var(--vimmy-yellow);
+            color: var(--vimmy-green-dark);
+            font-weight: 700;
+            padding: 12px 32px;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3);
+        }
+
+        .btn-vimmy-cta:hover {
+            background-color: #ffa700;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 183, 3, 0.5);
+            color: var(--vimmy-green-dark);
+        }
+    </style>
+</head>
+<body>
+
+<section class="section-vimmy-community py-5 text-white">
+    <div class="container py-4">
         
-        <!-- Insignia y Título -->
-        <span class="badge-vimmydog mb-2">Comunidad Vimmy Dog</span>
-        <h2 class="fw-bold mb-2 display-6">¡A ellos les encantan nuestros snacks!</h2>
-        <p class="mb-5 text-light opacity-75">Mira cómo disfrutan nuestros clientes más exigentes.</p>
+        <!-- Insignia y Encabezado Principal -->
+        <div class="text-center max-w-700 mx-auto mb-4">
+            <span class="badge-vimmydog mb-3">
+                <i class="fa-solid fa-heart"></i> Comunidad Vimmy Dog
+            </span>
+            <h2 class="main-title display-5 mb-3">¡A ellos les encantan nuestros snacks!</h2>
+            <p class="text-light opacity-75 fs-6">Mira cómo disfrutan nuestros clientes más exigentes en su día a día.</p>
+        </div>
+
+        <!-- Barra de Modos de Vista / Filtros -->
+        <div class="d-flex justify-content-center align-items-center gap-2 mb-5">
+            <span class="small text-light opacity-75 me-2"><i class="fa-solid fa-sliders me-1"></i> Formato de vídeo:</span>
+            <button class="btn btn-ratio-toggle active" id="btn-16x9" onclick="changeVideoRatio('16x9')">
+                <i class="fa-solid fa-desktop me-1"></i> Horizontal (16:9)
+            </button>
+            <button class="btn btn-ratio-toggle" id="btn-9x16" onclick="changeVideoRatio('9x16')">
+                <i class="fa-solid fa-mobile-screen me-1"></i> Vertical / Reels (9:16)
+            </button>
+        </div>
         
-        <!-- Primera Fila de Videos -->
-        <div class="row justify-content-center g-4 mb-4">
+        <!-- Grilla de Videos (4 Columnas responsivas perfectamente alineadas) -->
+        <div class="row g-4 justify-content-center" id="video-grid">
             
             <!-- Video 1 -->
-            <div class="col-md-6">
-                <div class="card card-video bg-dark text-white h-100">
-                    <div class="ratio ratio-16x9">
-                        <video class="w-100" controls autoplay muted loop>
-                            <source src="videos/pastor.mp4" type="video/mp4">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card card-video h-100">
+                    <div class="video-wrapper ratio-16x9">
+                        <span class="dog-tag"><i class="fa-solid fa-location-dot me-1"></i> En Casa</span>
+                        <div class="video-overlay-btn"><i class="fa-solid fa-play"></i></div>
+                        <video loop muted playsinline poster="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80">
+                            <!-- Video público de prueba estable -->
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-dog-catches-a-ball-in-a-park-41584-large.mp4" type="video/mp4">
                             Tu navegador no soporta reproducción de video.
                         </video>
                     </div>
-                    <div class="card-body bg-white text-dark py-3">
-                        <h5 class="fw-bold mb-0 text-vimmy-green">🐾 Max disfrutando su premio</h5>
+                    <div class="card-body">
+                        <h5 class="card-title-text">
+                            🐾 Max disfrutando su premio
+                        </h5>
+                        <p class="card-subtext">Pastor Alemán • Snack Natural de Carne</p>
                     </div>
                 </div>
             </div>
 
             <!-- Video 2 -->
-            <div class="col-md-6">
-                <div class="card card-video bg-dark text-white h-100">
-                    <div class="ratio ratio-16x9">
-                        <video class="w-100" controls autoplay muted loop>
-                            <source src="videos/parque1.mp4" type="video/mp4">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card card-video h-100">
+                    <div class="video-wrapper ratio-16x9">
+                        <span class="dog-tag"><i class="fa-solid fa-tree me-1"></i> En el Parque</span>
+                        <div class="video-overlay-btn"><i class="fa-solid fa-play"></i></div>
+                        <video loop muted playsinline poster="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-small-dog-running-on-the-grass-41318-large.mp4" type="video/mp4">
                             Tu navegador no soporta reproducción de video.
                         </video>
                     </div>
-                    <div class="card-body bg-white text-dark py-3">
-                        <h5 class="fw-bold mb-0 text-vimmy-green">🐾 Luna probando el nuevo sabor</h5>
+                    <div class="card-body">
+                        <h5 class="card-title-text">
+                            🐾 Luna probando sabor nuevo
+                        </h5>
+                        <p class="card-subtext">Golden Retriever • Premios Horneados</p>
                     </div>
                 </div>
             </div>
 
-        </div>
-
-        <!-- Segunda Fila de Videos -->
-        <div class="row justify-content-center g-4">
-            
             <!-- Video 3 -->
-            <div class="col-md-6">
-                <div class="card card-video bg-dark text-white h-100">
-                    <div class="ratio ratio-16x9">
-                        <video class="w-100" controls autoplay muted loop>
-                            <source src="videos/parque1.mp4" type="video/mp4">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card card-video h-100">
+                    <div class="video-wrapper ratio-16x9">
+                        <span class="dog-tag"><i class="fa-solid fa-graduation-cap me-1"></i> Entrenamiento</span>
+                        <div class="video-overlay-btn"><i class="fa-solid fa-play"></i></div>
+                        <video loop muted playsinline poster="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&w=600&q=80">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-man-playing-with-his-dog-in-a-park-41315-large.mp4" type="video/mp4">
                             Tu navegador no soporta reproducción de video.
                         </video>
                     </div>
-                    <div class="card-body bg-white text-dark py-3">
-                        <h5 class="fw-bold mb-0 text-vimmy-green">🐾 Max disfrutando su premio</h5>
+                    <div class="card-body">
+                        <h5 class="card-title-text">
+                            🐾 Rocky aprendiendo trucos
+                        </h5>
+                        <p class="card-subtext">Jack Russell • Bite-sized Trainer</p>
                     </div>
                 </div>
             </div>
 
             <!-- Video 4 -->
-            <div class="col-md-6">
-                <div class="card card-video bg-dark text-white h-100">
-                    <div class="ratio ratio-16x9">
-                        <video class="w-100" controls autoplay muted loop>
-                            <source src="videos/parque2.mp4" type="video/mp4">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card card-video h-100">
+                    <div class="video-wrapper ratio-16x9">
+                        <span class="dog-tag"><i class="fa-solid fa-bone me-1"></i> Hora de Snack</span>
+                        <div class="video-overlay-btn"><i class="fa-solid fa-play"></i></div>
+                        <video loop muted playsinline poster="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=600&q=80">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-dog-looking-at-the-camera-41582-large.mp4" type="video/mp4">
                             Tu navegador no soporta reproducción de video.
                         </video>
                     </div>
-                    <div class="card-body bg-white text-dark py-3">
-                        <h5 class="fw-bold mb-0 text-vimmy-green">🐾 Luna probando el nuevo sabor</h5>
+                    <div class="card-body">
+                        <h5 class="card-title-text">
+                            🐾 Toby feliz con su caja
+                        </h5>
+                        <p class="card-subtext">Beagle • Pack Variado de Treats</p>
                     </div>
                 </div>
             </div>
 
         </div>
 
-    </div>
-</section>
-<!-- ========================================== -->
-<!-- 2. SECCIÓN DE ACCESORIOS PARA PERRITOS -->
-<!-- ========================================== -->
-<section class="bg-vimmy-cream py-5">
-    <div class="container">
-        <div class="p-4 p-md-5 rounded-4 bg-white shadow-lg border border-2 border-light">
-            <div class="row align-items-center g-4">
-                
-                <!-- Columna Izquierda: Logo e Información -->
-                <div class="col-lg-5 text-lg-start text-center">
-                    <span class="badge-edicion mb-3 display-inline-block">EDICIÓN ESPECIAL</span>
-                    <h2 class="fw-bold text-vimmy-green mb-3">Vimmy Dog: Accesorios Premium para tu Mejor Amigo</h2>
-                    <p class="text-muted mb-4">
-                        Encuentra collares, bandanas, correas y juguetes ergonómicos diseñados para su bienestar, comodidad y máxima felicidad.
-                    </p>
-                    
-                    <!-- Botones de Acción -->
-                    <div class="d-flex flex-wrap gap-3 justify-content-lg-start justify-content-center mb-4">
-                        <a href="#pedir-accesorios" class="btn btn-vimmy-yellow shadow-sm">
-                            🛍️ Pedir Accesorios
-                        </a>
-                        <a href="#catalogo" class="btn btn-vimmy-outline">
-                            🔍 Explorar Catálogo
-                        </a>
-                    </div>
-
-                    <!-- Logo Integrado -->
-                    <div class="pt-3 border-top d-flex align-items-center justify-content-lg-start justify-content-center gap-2">
-                        <img src="imagenes/logo.png" alt="Vimmy Dog Logo" style="max-height: 40px;" onerror="this.style.display='none'">
-                        <span class="fw-bold text-vimmy-green">VIMMY DOG</span>
-                    </div>
-                </div>
-
-                <!-- Columna Derecha: Galería de Accesorios (Cuadrícula 2x2) -->
-                <div class="col-lg-7">
-                    <div class="row g-3">
-                        
-                        <!-- Accesorio 1: Collar -->
-                        <div class="col-6">
-                            <div class="card card-accesorio p-3 text-center">
-                                <img src="img/GPS.jpg" alt="Collar Ergónomico Verde" class="img-fluid rounded mb-2" style="height: 120px; object-fit: contain;">
-                                <h6 class="fw-bold text-dark mb-1">Collar Ergonómico</h6>
-                                <span class="small text-muted">Acolchado y resistente</span>
-                            </div>
-                        </div>
-
-                        <!-- Accesorio 2: Bandana -->
-                        <div class="col-6">
-                            <div class="card card-accesorio p-3 text-center">
-                                <img src="img/CORREA.jpg" alt="Bandana de Colores" class="img-fluid rounded mb-2" style="height: 120px; object-fit: contain;">
-                                <h6 class="fw-bold text-dark mb-1">Bandana Estampada</h6>
-                                <span class="small text-muted">Diseños exclusivos</span>
-                            </div>
-                        </div>
-
-                        <!-- Accesorio 3: Correa -->
-                        <div class="col-6">
-                            <div class="card card-accesorio p-3 text-center">
-                                <img src="img/COLLAR.jpg" alt="Correa de Paseo" class="img-fluid rounded mb-2" style="height: 120px; object-fit: contain;">
-                                <h6 class="fw-bold text-dark mb-1">Correa Reforzada</h6>
-                                <span class="small text-muted">Broche de seguridad</span>
-                            </div>
-                        </div>
-
-                        <!-- Accesorio 4: Juguete Porta-Snack -->
-                        <div class="col-6">
-                            <div class="card card-accesorio p-3 text-center">
-                                <img src="img/BANDA.jpg" alt="Juguete Porta-Snack" class="img-fluid rounded mb-2" style="height: 120px; object-fit: contain;">
-                                <h6 class="fw-bold text-dark mb-1">Juguete Interactivo</h6>
-                                <span class="small text-muted">Ideal para premios</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
+        <!-- Botón Inferior -->
+        <div class="text-center mt-5">
+            <button class="btn btn-vimmy-cta">
+                <i class="fa-instagram fab me-2"></i> Ver más historias en @VimmyDog
+            </button>
         </div>
+
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoCards = document.querySelectorAll('.card-video');
+
+        // Configurar reproducción dinámica al pasar el mouse o tocar
+        videoCards.forEach(card => {
+            const video = card.querySelector('video');
+            const icon = card.querySelector('.video-overlay-btn i');
+
+            card.addEventListener('mouseenter', () => {
+                video.play().then(() => {
+                    card.classList.add('is-playing');
+                }).catch(err => console.log("Autoplay blocked:", err));
+            });
+
+            card.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+                card.classList.remove('is-playing');
+            });
+
+            // Soporte para dispositivos móviles (Tap para reproducir/pausar)
+            card.addEventListener('click', () => {
+                if (video.paused) {
+                    // Pausar los demás videos
+                    document.querySelectorAll('video').forEach(v => {
+                        v.pause();
+                        v.closest('.card-video').classList.remove('is-playing');
+                    });
+
+                    video.play().then(() => {
+                        card.classList.add('is-playing');
+                    });
+                } else {
+                    video.pause();
+                    card.classList.remove('is-playing');
+                }
+            });
+        });
+    });
+
+    // Función para alternar el formato del contenedor de video (16:9 vs 9:16 Reels)
+    function changeVideoRatio(ratio) {
+        const wrappers = document.querySelectorAll('.video-wrapper');
+        const btn16x9 = document.getElementById('btn-16x9');
+        const btn9x16 = document.getElementById('btn-9x16');
+
+        if (ratio === '9x16') {
+            wrappers.forEach(w => {
+                w.classList.remove('ratio-16x9');
+                w.classList.add('ratio-9x16');
+            });
+            btn9x16.classList.add('active');
+            btn16x9.classList.remove('active');
+        } else {
+            wrappers.forEach(w => {
+                w.classList.remove('ratio-9x16');
+                w.classList.add('ratio-16x9');
+            });
+            btn16x9.classList.add('active');
+            btn9x16.classList.remove('active');
+        }
+    }
+</script>
+
+</body>
+</html>
