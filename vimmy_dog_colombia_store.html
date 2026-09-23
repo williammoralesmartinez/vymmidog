@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIMMY DOG - Snack Orgánico Premium para Perros | Colombia</title>
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --verde-vimmy-oscuro: #123d15;
+            --verde-vimmy: #1b5e20;
+            --verde-vimmy-medio: #2e7d32;
+            --amarillo-vimmy: #fbc02d;
+            --amarillo-hover: #f9a825;
+            --dorado: #d4af37;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #2b2b2b;
+        }
+
+        /* Utilidades de Color */
+        .bg-vimmy-dark { background-color: var(--verde-vimmy-oscuro) !important; }
+        .bg-vimmy { background-color: var(--verde-vimmy) !important; }
+        .bg-vimmy-medium { background-color: var(--verde-vimmy-medio) !important; }
+        .bg-amarillo { background-color: var(--amarillo-vimmy) !important; }
+        .text-vimmy { color: var(--verde-vimmy) !important; }
+        .text-amarillo { color: var(--amarillo-vimmy) !important; }
+
+        /* Botones Personalizados */
+        .btn-vimmy-yellow {
+            background-color: var(--amarillo-vimmy);
+            color: #000;
+            font-weight: 700;
+            border: none;
+            transition: all 0.25s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .btn-vimmy-yellow:hover {
+            background-color: var(--amarillo-hover);
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Banner Principal (Hero) */
+        .hero-banner {
+            /* RUTA DE IMAGEN DE FONDO: imagenes/fondo-banner.jpg */
+            background: linear-gradient(135deg, rgba(18, 61, 21, 0.90), rgba(46, 125, 50, 0.85)), 
+                        url('imagenes/fondo-banner.jpg') center/cover no-repeat;
+            color: white;
+            padding: 90px 0 110px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #f8f9fa;
+            clip-path: polygon(0 100%, 100% 100%, 100% 0);
+        }
+
+        .badge-organic {
+            background: linear-gradient(45deg, #d4af37, #fbc02d);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1) !important;
+        }
+
+        .feature-icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        /* Contenedor para Imagen del Producto */
+        .product-img-container {
+            background: radial-gradient(circle, rgba(251,192,45,0.15) 0%, rgba(27,94,32,0.05) 70%);
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .product-img-container img {
+            max-height: 440px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .product-img-container img:hover {
+            transform: scale(1.03) rotate(1deg);
+        }
+
+        .guarantee-box {
+            border-left: 4px solid var(--amarillo-vimmy);
+            background-color: #f1f8e9;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <!-- Barra de Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-vimmy sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3 d-flex align-items-center" href="#">
+                <!-- RUTA DE TU LOGO PRINCIPAL -->
+                <img src="imagenes/logo.png" alt="Logo VIMMY DOG" class="logo-img me-2 rounded-circle border border-warning" onerror="this.style.display='none'">
+                <span class="tracking-wide">VIMMY DOG</span>
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link text-white active" href="#">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="#producto">Nuestro Snack</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="#beneficios">Beneficios</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="#nutricion">Análisis Nutricional</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="#contacto">Contacto</a></li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-vimmy-dark text-amarillo border border-warning px-3 py-2 rounded-pill d-none d-md-inline-block">
+                        <i class="bi bi-truck me-1"></i> Envíos a todo Colombia 🇨🇴
+                    </span>
+
+                    <button class="btn btn-vimmy-yellow position-relative px-4 py-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+                        <i class="bi bi-cart-fill me-1"></i> Carrito
+                        <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger shadow-sm">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner Principal (Hero) -->
+    <header class="hero-banner text-center text-md-start">
+        <div class="container">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7">
+                    <div class="d-inline-flex align-items-center gap-2 bg-warning bg-opacity-20 border border-warning text-amarillo px-3 py-1 rounded-pill mb-3">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span class="fw-bold small text-white">Alimento Premium Orgánico sin Químicos</span>
+                    </div>
+                    <h1 class="display-3 fw-black text-white text-uppercase tracking-tight lh-1 mb-3">
+                        Más Sabor.<br>
+                        <span class="text-amarillo">Más Alegría.</span><br>
+                        Más Amor.
+                    </h1>
+                    <p class="lead text-white-50 mb-4 fs-4 pe-lg-5">
+                        Premiar a tu mejor amigo ahora es 100% saludable. Premios crocantes elaborados con ingredientes de origen natural cuidadosamente seleccionados.
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-md-start">
+                        <a href="#producto" class="btn btn-vimmy-yellow btn-lg px-4 py-3 rounded-pill">
+                            <i class="bi bi-bag-check-fill me-2"></i> Pedir Ahora ($12.000 COP)
+                        </a>
+                        <a href="#nutricion" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
+                            <i class="bi bi-shield-check me-2"></i> Tabla Nutricional
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 text-center">
+                    <div class="position-relative d-inline-block">
+                        <div class="bg-warning rounded-circle position-absolute top-50 start-50 translate-middle opacity-25 blur-lg" style="width: 280px; height: 280px; filter: blur(40px);"></div>
+                        <!-- RUTA DE LA FOTO DEL PERRO EN PORTADA -->
+                        <img src="imagenes/perritos.png.jpg" alt="Perro feliz disfrutando Vimmy Dog" class="img-fluid rounded-circle border border-4 border-warning shadow-lg position-relative" style="max-height: 380px; width: 380px; object-fit: cover;">
+                        <span class="position-absolute bottom-0 start-0 badge badge-organic px-3 py-2 rounded-pill fs-6 shadow">
+                            <i class="bi bi-heart-fill me-1 text-danger"></i> Hecho con Amor
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección Principal del Producto -->
+    <main class="container my-5 flex-grow-1" id="producto">
+        <div class="row align-items-center bg-white rounded-4 shadow-sm p-4 p-md-5 g-5 border">
+            <!-- Muestra de Imagen de Producto -->
+            <div class="col-lg-6 text-center">
+                <div class="product-img-container">
+                    <span class="badge badge-organic px-3 py-2 rounded-pill position-absolute top-0 start-0 m-3 fs-6">
+                        <i class="bi bi-patch-check-fill me-1"></i> 100% Orgánico
+                    </span>
+                    <span class="badge bg-vimmy text-white px-3 py-2 rounded-pill position-absolute top-0 end-0 m-3 fs-6">
+                        Sabor Pollo 🍗
+                    </span>
+                    <!-- RUTA DE LA FOTO DE TU EMPAQUE VIMMY DOG -->
+                    <img src="imagenes/empaque-vimmy.jpg" class="img-fluid my-3" alt="Empaque Vimmy Dog Snack Orgánico 100g">
+                </div>
+            </div>
+
+            <!-- Información de Compra del Producto -->
+            <div class="col-lg-6">
+                <small class="text-uppercase text-vimmy fw-bold tracking-wider d-block mb-1">Alimento Complementario para Perros</small>
+                <h2 class="display-5 fw-bold text-dark mb-2">VIMMY DOG - Snack Sabor Pollo</h2>
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <span class="fs-4 fw-bold text-success">$12.000 COP</span>
+                    <span class="badge bg-light text-secondary border">Empaque de 100g</span>
+                    <span class="badge bg-warning bg-opacity-20 text-dark fw-bold border border-warning">Stock Disponible</span>
+                </div>
+
+                <p class="text-secondary mb-4 fs-6">
+                    Crujiente snack complementario orgánico ideal para la recompensa diaria. Formulado para consentir y fortalecer los lazos afectivos con tu peludo con el mejor sabor a pollo natural.
+                </p>
+
+                <!-- Puntos Clave -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6">
+                        <div class="d-flex align-items-center p-2 rounded bg-light border">
+                            <i class="bi bi-check-circle-fill text-success fs-4 me-2"></i>
+                            <div>
+                                <strong class="d-block text-dark small">Delicioso</strong>
+                                <span class="text-muted" style="font-size: 0.75rem;">Sabor irresistible</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center p-2 rounded bg-light border">
+                            <i class="bi bi-award-fill text-warning fs-4 me-2"></i>
+                            <div>
+                                <strong class="d-block text-dark small">Crocante</strong>
+                                <span class="text-muted" style="font-size: 0.75rem;">Textura única</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center p-2 rounded bg-light border">
+                            <i class="bi bi-heart-fill text-danger fs-4 me-2"></i>
+                            <div>
+                                <strong class="d-block text-dark small">Ideal para Premiar</strong>
+                                <span class="text-muted" style="font-size: 0.75rem;">Refuerzo positivo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center p-2 rounded bg-light border">
+                            <i class="bi bi-tree-fill text-success fs-4 me-2"></i>
+                            <div>
+                                <strong class="d-block text-dark small">Eco-Friendly</strong>
+                                <span class="text-muted" style="font-size: 0.75rem;">Empaque Sostenible</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selector de Cantidad -->
+                <div class="p-3 rounded-4 bg-light border mb-4">
+                    <div class="row align-items-center g-3">
+                        <div class="col-sm-5">
+                            <label for="cantMain" class="form-label small text-muted mb-1">Cantidad de empaques:</label>
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" type="button" onclick="ajustarCantidadMain(-1)">-</button>
+                                <input type="number" id="cantMain" class="form-control text-center fw-bold" value="1" min="1" max="50">
+                                <button class="btn btn-outline-secondary" type="button" onclick="ajustarCantidadMain(1)">+</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <label class="form-label d-none d-sm-block small text-muted mb-1">&nbsp;</label>
+                            <button class="btn btn-vimmy-yellow btn-lg w-100 py-2 rounded-3" onclick="agregarAlCarritoMain()">
+                                <i class="bi bi-cart-plus-fill me-2"></i> Añadir al Carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Información de Envíos en Colombia -->
+                <div class="p-3 rounded-3 guarantee-box d-flex align-items-center gap-3">
+                    <i class="bi bi-geo-alt-fill text-vimmy fs-2"></i>
+                    <div class="small">
+                        <strong>Envíos Nacionales Rápidos en Colombia</strong><br>
+                        Entregas en Bogotá (24-48h), Medellín, Cali, Barranquilla, Bucaramanga y resto del país vía Servientrega o Interrapidísimo.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sección de Beneficios -->
+    <section class="py-5 bg-white border-top border-bottom" id="beneficios">
+        <div class="container">
+            <div class="text-center max-w-xl mx-auto mb-5">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-2">¿Por qué elegir VIMMY DOG?</span>
+                <h2 class="fw-bold text-vimmy">Nutrición, Amor y Calidad en Cada Bocado</h2>
+                <p class="text-muted">Desarrollado para cuidar la salud digestiva de tu mascota sin comprometer el sabor.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card card-custom h-100 p-4 bg-light border-0">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon-box bg-vimmy text-white">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <h5 class="fw-bold mb-0 text-dark">Sin Químicos ni Aditivos</h5>
+                        </div>
+                        <p class="text-muted mb-0">Libre de colorantes artificiales, conservantes sintéticos nocivos y saborizantes químicos. 100% natural para el bienestar canino.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card card-custom h-100 p-4 bg-light border-0">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon-box bg-warning text-dark">
+                                <i class="bi bi-lightning-charge-fill"></i>
+                            </div>
+                            <h5 class="fw-bold mb-0 text-dark">Proteína de Pollo 28%</h5>
+                        </div>
+                        <p class="text-muted mb-0">Alto contenido proteico garantizado para mantener la masa muscular activa y aportar vitalidad diaria a tu perro.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card card-custom h-100 p-4 bg-light border-0">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon-box bg-success text-white">
+                                <i class="bi bi-emoji-smile-fill"></i>
+                            </div>
+                            <h5 class="fw-bold mb-0 text-dark">Fortalece el Vínculo</h5>
+                        </div>
+                        <p class="text-muted mb-0">Ideal para dinámicas de adiestramiento, educación o simplemente para expresarle cuánto lo amas en cualquier hora del día.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Análisis Nutricional e Ingredientes -->
+    <section class="py-5 bg-light" id="nutricion">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-vimmy display-6">Transparencia Nutricional Garantizada</h2>
+                <p class="text-muted">Información extraída directamente de la etiqueta oficial de nuestro empaque</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card card-custom h-100 shadow-sm border-0">
+                        <div class="card-header bg-vimmy text-white p-3 fw-bold fs-5 d-flex align-items-center">
+                            <i class="bi bi-egg-fried text-amarillo me-2 fs-4"></i> Ingredientes Seleccionados
+                        </div>
+                        <div class="card-body p-4">
+                            <p class="lh-lg text-dark">
+                                Harina de pollo, arroz, maíz, grasa de pollo, saborizantes naturales, proteína de origen animal (pollo) y antioxidantes permitidos.
+                            </p>
+                            <hr class="my-4">
+                            <div class="bg-warning bg-opacity-10 p-3 rounded-3 border border-warning">
+                                <strong class="text-dark d-block mb-1"><i class="bi bi-info-circle-fill text-warning me-2"></i>Guía de Alimentación:</strong>
+                                <p class="small text-muted mb-0">
+                                    Ofrecer como premio o recompensa en cualquier momento del día. No sustituye el alimento completo diario. Dejar siempre agua fresca y limpia disponible.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card card-custom h-100 shadow-sm border-0">
+                        <div class="card-header bg-vimmy text-white p-3 fw-bold fs-5 d-flex align-items-center">
+                            <i class="bi bi-bar-chart-line-fill text-amarillo me-2 fs-4"></i> Análisis Garantizado
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped table-hover mb-0 align-middle">
+                                <tbody>
+                                    <tr class="p-3">
+                                        <td class="ps-4 fw-semibold">Proteína Mínima</td>
+                                        <td class="pe-4 text-end"><span class="badge bg-success fs-6">28%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4 fw-semibold">Grasa Mínima</td>
+                                        <td class="pe-4 text-end"><span class="badge bg-success fs-6">12%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4 fw-semibold">Fibra Máxima</td>
+                                        <td class="pe-4 text-end"><span class="badge bg-secondary fs-6">3%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4 fw-semibold">Humedad Máxima</td>
+                                        <td class="pe-4 text-end"><span class="badge bg-secondary fs-6">10%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ps-4 fw-semibold">Cenizas Máximas</td>
+                                        <td class="pe-4 text-end"><span class="badge bg-secondary fs-6">7%</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer bg-white p-3 border-top-0">
+                            <div class="d-flex align-items-center text-muted small">
+                                <i class="bi bi-box-seam me-2 fs-5 text-vimmy"></i>
+                                <span><strong>Conservación:</strong> Mantener en un lugar fresco, seco y protegido de la luz solar. Cerrar bien el empaque después de abrir.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Carrito de Compras -->
+    <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="modalCarritoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header bg-vimmy text-white rounded-top-4">
+                    <h5 class="modal-title fw-bold" id="modalCarritoLabel">
+                        <i class="bi bi-cart3 me-2 text-amarillo"></i>Tu Carrito de Compras
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th style="width: 130px;">Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart-items"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="cart-empty-msg" class="text-center py-5 text-muted">
+                        <i class="bi bi-cart-x display-3 d-block text-secondary mb-2"></i>
+                        <h5>Tu carrito está vacío</h5>
+                        <p class="small">Añade empaques de VIMMY DOG para consentir a tu perro.</p>
+                    </div>
+
+                    <div class="p-3 bg-light rounded-3 mt-3 border">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Subtotal Productos:</span>
+                            <span id="cart-subtotal" class="fw-semibold">$0 COP</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Costo Envío (Colombia):</span>
+                            <span id="cart-shipping" class="fw-semibold text-success">Calculado en checkout</span>
+                        </div>
+                        <hr class="my-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold fs-5">Total a Pagar:</span>
+                            <span id="cart-total" class="fw-bold fs-3 text-success">$0 COP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light rounded-bottom-4">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Seguir Comprando</button>
+                    <button type="button" class="btn btn-vimmy-yellow px-4 rounded-pill" id="btnProcederCheckout" disabled onclick="abrirModalCheckout()">
+                        Proceder al Pago <i class="bi bi-arrow-right ms-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Checkout Colombia -->
+    <div class="modal fade" id="modalCheckout" tabindex="-1" aria-labelledby="modalCheckoutLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header bg-vimmy text-white rounded-top-4">
+                    <h5 class="modal-title fw-bold" id="modalCheckoutLabel">
+                        <i class="bi bi-shield-check me-2 text-amarillo"></i>Finalizar Compra - Envío Colombia
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="formCheckout" onsubmit="procesarPedidoColombiano(event)">
+                        <h6 class="fw-bold text-vimmy mb-3"><i class="bi bi-person-vcard me-2"></i>Datos del Comprador</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Nombre Completo *</label>
+                                <input type="text" class="form-control" required placeholder="Ej. Juan Pérez">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Cédula de Ciudadanía / NIT *</label>
+                                <input type="text" class="form-control" required placeholder="Ej. 1018234567">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Teléfono Celular (WhatsApp) *</label>
+                                <input type="tel" class="form-control" required placeholder="Ej. 3101234567">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Correo Electrónico *</label>
+                                <input type="email" class="form-control" required placeholder="nombre@correo.com">
+                            </div>
+                        </div>
+
+                        <h6 class="fw-bold text-vimmy mb-3"><i class="bi bi-geo-alt-fill me-2"></i>Dirección de Entrega</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Departamento *</label>
+                                <select class="form-select" required id="selectDepto" onchange="actualizarCostoEnvio()">
+                                    <option value="">Seleccione Departamento</option>
+                                    <option value="Cundinamarca">Cundinamarca (Bogotá D.C.)</option>
+                                    <option value="Antioquia">Antioquia</option>
+                                    <option value="Valle del Cauca">Valle del Cauca</option>
+                                    <option value="Atlantico">Atlántico</option>
+                                    <option value="Santander">Santander</option>
+                                    <option value="Otro">Otro Departamento Colombia</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Ciudad / Municipio *</label>
+                                <input type="text" class="form-control" required placeholder="Ej. Bogotá, Medellín, Cali...">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold">Dirección Completa (Barrio / Apto / Casa) *</label>
+                                <input type="text" class="form-control" required placeholder="Ej. Cra. 15 # 85-30 Apto 201">
+                            </div>
+                        </div>
+
+                        <h6 class="fw-bold text-vimmy mb-3"><i class="bi bi-credit-card-2-front-fill me-2"></i>Método de Pago Preferido</h6>
+                        <div class="row g-2 mb-4">
+                            <div class="col-6 col-md-3">
+                                <input type="radio" class="btn-check" name="metodoPago" id="pagoNequi" value="Nequi/Daviplata" checked>
+                                <label class="btn btn-outline-success w-100 p-2 small fw-bold" for="pagoNequi">📱 Nequi / Daviplata</label>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <input type="radio" class="btn-check" name="metodoPago" id="pagoPSE" value="PSE">
+                                <label class="btn btn-outline-success w-100 p-2 small fw-bold" for="pagoPSE">🏦 PSE</label>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <input type="radio" class="btn-check" name="metodoPago" id="pagoTarjeta" value="Tarjeta Credito/Debito">
+                                <label class="btn btn-outline-success w-100 p-2 small fw-bold" for="pagoTarjeta">💳 Tarjeta</label>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <input type="radio" class="btn-check" name="metodoPago" id="pagoWompi" value="Bold/Wompi">
+                                <label class="btn btn-outline-success w-100 p-2 small fw-bold" for="pagoWompi">⚡ Bold / Wompi</label>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-light rounded-3 mb-3 border text-end">
+                            <span class="d-block text-muted small">Resumen Final:</span>
+                            <span id="checkoutTotalFinal" class="fs-3 fw-bold text-success">$0 COP</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-vimmy-yellow btn-lg w-100 rounded-pill py-3 fw-bold">
+                            <i class="bi bi-lock-fill me-2"></i> Confirmar Pedido y Pagar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de Página (Footer) -->
+    <footer class="bg-vimmy-dark text-white pt-5 pb-4 mt-auto border-top border-warning" id="contacto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-amarillo fw-bold mb-3">
+                        <i class="bi bi-building me-2"></i>FABRICADO POR:
+                    </h5>
+                    <p class="mb-1 fs-5 fw-bold text-white">VIMMY PET FOODS</p>
+                    <p class="mb-1 text-white-50"><i class="bi bi-geo-alt-fill me-2 text-warning"></i>Cra. 72B N. 66A-23, Bodega 3</p>
+                    <p class="mb-1 text-white-50">Bogotá D.C., Colombia</p>
+                    <p class="mb-1 text-white-50"><i class="bi bi-whatsapp me-2 text-success"></i>Cel: +57 310 322 7200</p>
+                    <p class="text-white-50"><i class="bi bi-globe me-2 text-info"></i>www.vimmydog.com</p>
+                </div>
+
+                <div class="col-lg-4 col-md-6 text-md-center">
+                    <h5 class="text-amarillo fw-bold mb-3">SÍGUENOS EN REDES</h5>
+                    <p class="text-white-50 small mb-3">Únete a nuestra comunidad canina orgánica en Colombia:</p>
+                    <div class="d-flex justify-content-md-center gap-3 mb-3">
+                        <a href="https://instagram.com/vimmydog.snack" target="_blank" class="btn btn-outline-warning rounded-circle p-2" style="width: 45px; height: 45px;" aria-label="Instagram">
+                            <i class="bi bi-instagram fs-5"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-warning rounded-circle p-2" style="width: 45px; height: 45px;" aria-label="Facebook">
+                            <i class="bi bi-facebook fs-5"></i>
+                        </a>
+                        <a href="https://wa.me/573103227200" target="_blank" class="btn btn-outline-success text-white rounded-circle p-2" style="width: 45px; height: 45px;" aria-label="WhatsApp">
+                            <i class="bi bi-whatsapp fs-5"></i>
+                        </a>
+                    </div>
+                    <span class="badge bg-success text-white px-3 py-2 rounded-pill">@vimmydog.snack</span>
+                </div>
+
+                <div class="col-lg-4 col-md-12 text-lg-end">
+                    <div class="p-3 rounded-3 bg-white bg-opacity-10 border border-white border-opacity-10">
+                        <!-- RUTA DE TU LOGO / ICONO SECUNDARIO ECO -->
+                        <img src="imagenes/logo-footer.jpg" alt="Logo Secundario VIMMY" class="mb-2 rounded" style="max-height: 40px;" onerror="this.style.display='none'">
+                        <i class="bi bi-recycle text-warning fs-1 d-block mb-2"></i>
+                        <h6 class="fw-bold text-white mb-1">Empacado Responsablemente</h6>
+                        <p class="small text-white-50 mb-0">Cuidamos a tu mascota y respetamos nuestro planeta con empaques eco-amigables.</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-secondary my-4">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start text-white-50 small">
+                    © 2026 VIMMY DOG. Todos los derechos reservados. Colombia.
+                </div>
+                <div class="col-md-6 text-center text-md-end text-white-50 small">
+                    Alimento Complementario para Perros
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script del Carrito y Tienda -->
+    <script>
+        const PRECIO_PRODUCTO = 12000;
+        let carrito = [];
+
+        function ajustarCantidadMain(delta) {
+            const input = document.getElementById('cantMain');
+            let val = parseInt(input.value) || 1;
+            val += delta;
+            if (val < 1) val = 1;
+            if (val > 50) val = 50;
+            input.value = val;
+        }
+
+        function agregarAlCarritoMain() {
+            const cant = parseInt(document.getElementById('cantMain').value) || 1;
+            const productoId = "vimmy-pollo-100g";
+            
+            const itemExistente = carrito.find(i => i.id === productoId);
+            if (itemExistente) {
+                itemExistente.cantidad += cant;
+            } else {
+                carrito.push({
+                    id: productoId,
+                    nombre: "VIMMY DOG Sabor Pollo (100g)",
+                    precio: PRECIO_PRODUCTO,
+                    cantidad: cant
+                });
+            }
+
+            actualizarCarritoUI();
+            const cartModal = new bootstrap.Modal(document.getElementById('modalCarrito'));
+            cartModal.show();
+        }
+
+        function actualizarCarritoUI() {
+            const container = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartTotal = document.getElementById('cart-total');
+            const emptyMsg = document.getElementById('cart-empty-msg');
+            const btnCheckout = document.getElementById('btnProcederCheckout');
+
+            container.innerHTML = '';
+            let totalGeneral = 0;
+            let totalCantidad = 0;
+
+            if (carrito.length === 0) {
+                emptyMsg.classList.remove('d-none');
+                btnCheckout.disabled = true;
+            } else {
+                emptyMsg.classList.add('d-none');
+                btnCheckout.disabled = false;
+
+                carrito.forEach(item => {
+                    const subtotal = item.precio * item.cantidad;
+                    totalGeneral += subtotal;
+                    totalCantidad += item.cantidad;
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>
+                            <div class="fw-bold text-dark">${item.nombre}</div>
+                            <small class="text-muted">Snack Orgánico 100g</small>
+                        </td>
+                        <td>$${item.precio.toLocaleString('es-CO')}</td>
+                        <td>
+                            <div class="input-group input-group-sm" style="width: 100px;">
+                                <button class="btn btn-outline-secondary" onclick="modificarCantidad('${item.id}', -1)">-</button>
+                                <input type="text" class="form-control text-center fw-bold" value="${item.cantidad}" readonly>
+                                <button class="btn btn-outline-secondary" onclick="modificarCantidad('${item.id}', 1)">+</button>
+                            </div>
+                        </td>
+                        <td class="fw-bold text-success">$${subtotal.toLocaleString('es-CO')}</td>
+                        <td>
+                            <button class="btn btn-outline-danger btn-sm" onclick="eliminarDelCarrito('${item.id}')" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    container.appendChild(tr);
+                });
+            }
+
+            cartCount.textContent = totalCantidad;
+            cartSubtotal.textContent = `$${totalGeneral.toLocaleString('es-CO')} COP`;
+            cartTotal.textContent = `$${totalGeneral.toLocaleString('es-CO')} COP`;
+        }
+
+        function modificarCantidad(id, delta) {
+            const item = carrito.find(i => i.id === id);
+            if (item) {
+                item.cantidad += delta;
+                if (item.cantidad <= 0) {
+                    eliminarDelCarrito(id);
+                } else {
+                    actualizarCarritoUI();
+                }
+            }
+        }
+
+        function eliminarDelCarrito(id) {
+            carrito = carrito.filter(i => i.id !== id);
+            actualizarCarritoUI();
+        }
+
+        function abrirModalCheckout() {
+            const modalCartElem = document.getElementById('modalCarrito');
+            const cartModal = bootstrap.Modal.getInstance(modalCartElem);
+            if (cartModal) cartModal.hide();
+
+            actualizarCostoEnvio();
+            const checkoutModal = new bootstrap.Modal(document.getElementById('modalCheckout'));
+            checkoutModal.show();
+        }
+
+        function calcularSubtotal() {
+            return carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+        }
+
+        function actualizarCostoEnvio() {
+            const depto = document.getElementById('selectDepto').value;
+            const subtotal = calcularSubtotal();
+            let envio = 10000;
+
+            if (depto === "Cundinamarca") {
+                envio = 7000;
+            } else if (depto === "") {
+                envio = 0;
+            }
+
+            const totalFinal = subtotal + envio;
+            document.getElementById('checkoutTotalFinal').textContent = `$${totalFinal.toLocaleString('es-CO')} COP`;
+        }
+
+        function procesarPedidoColombiano(e) {
+            e.preventDefault();
+            const metodo = document.querySelector('input[name="metodoPago"]:checked').value;
+            const subtotal = calcularSubtotal();
+            
+            alert(`¡Gracias por tu compra en VIMMY DOG Colombia!\n\nTu pedido ha sido registrado con éxito.\nMétodo de Pago: ${metodo}\nTotal: $${subtotal.toLocaleString('es-CO')} COP\n\nNos pondremos en contacto vía WhatsApp para confirmar el despacho.`);
+            
+            carrito = [];
+            actualizarCarritoUI();
+            
+            const modalElem = document.getElementById('modalCheckout');
+            const checkoutModal = bootstrap.Modal.getInstance(modalElem);
+            if (checkoutModal) checkoutModal.hide();
+        }
+    </script>
+</body>
+</html>
